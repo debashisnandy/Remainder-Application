@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Meeting Reminder</string>
+
+    <string name="remainder_notification_title_template">Remainder: %1$s</string>
+
+    <string name="catagory_upcoming">Upcoming</string>
+    <string name="catagory_done">Done</string>
+
+</resources>
