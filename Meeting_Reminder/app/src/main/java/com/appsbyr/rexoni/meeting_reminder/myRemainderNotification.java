@@ -76,46 +76,10 @@ public class myRemainderNotification extends BroadcastReceiver {
                 }
             }
 
-        }else if (intent.getAction().equalsIgnoreCase("android.intent.action.BOOT_COMPLETED")){
+        }else if (intent.getAction().equalsIgnoreCase
+                ("android.intent.action.BOOT_COMPLETED")){
             Log.v("BroadCast_Else","It's working");
-            Cursor cursor = mySqlDB.SelectFirstRow();
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-            if (cursor != null) {
-                try {
-                    if (cursor.moveToFirst()) {
-
-
-                        builder.setContentTitle(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Title)))
-                                .setContentText(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Description)))
-                                .setSmallIcon(R.drawable.ic_stat_remainder)
-                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                .setDefaults(Notification.DEFAULT_ALL)
-                                .setStyle(new NotificationCompat.BigTextStyle()
-                                        .bigText(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Description)))
-                                        .setBigContentTitle(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Title)))
-                                );
-                        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                        notificationManager.notify(idNumber,builder.build());
-                        idNumber+=idNumber;
-                        // Store the value to Done Table
-                        contentValues.put(CustomSQLDB2.Column_Date,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Date)));
-                        contentValues.put(CustomSQLDB2.Column_DateAndTime,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_TimeRoman)));
-                        contentValues.put(CustomSQLDB2.Column_Description,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Description)));
-                        contentValues.put(CustomSQLDB2.Column_Title,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Title)));
-                        contentValues.put(CustomSQLDB2.Column_DateInfo,cursor.getInt(cursor.getColumnIndex(customSQLDB.Column_DateInfo)));
-                        contentValues.put(CustomSQLDB2.Column_second,cursor.getInt(cursor.getColumnIndex(customSQLDB.Column_second)));
-                        contentValues.put(CustomSQLDB2.Column_Time,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Time)));
-                        customSQLDB2.inset(contentValues);
-                        String[] del = {cursor.getString(cursor.getColumnIndex(customSQLDB.Column_second))};
-                        mySqlDB.delete(customSQLDB.Column_second+"=?",del);
                         fireTheAlarm.FireTheAlarm();
-
-                    }
-                } finally {
-                    cursor.close();
-                }
-            }
         }
 
     }
