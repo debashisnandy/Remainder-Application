@@ -23,6 +23,7 @@ public class myRemainderNotification extends BroadcastReceiver {
     customSQLDB mySqlDB;
     CustomSQLDB2 customSQLDB2;
     FireTheAlarm fireTheAlarm;
+    GiveTheNotification giveTheNotification;
     public myRemainderNotification(){
 
     }
@@ -30,7 +31,7 @@ public class myRemainderNotification extends BroadcastReceiver {
     static int idNumber=1;
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        giveTheNotification = new GiveTheNotification(context);
         mySqlDB= new customSQLDB(context);
         ContentValues contentValues = new ContentValues();
         customSQLDB2= new CustomSQLDB2(context);
@@ -38,25 +39,15 @@ public class myRemainderNotification extends BroadcastReceiver {
         if(intent.getAction().equalsIgnoreCase("com.remanider.roni")){
             Log.v("BroadCast_Class","It's working");
             Cursor cursor = mySqlDB.SelectFirstRow();
+            
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
             if (cursor != null) {
                 try {
                     if (cursor.moveToFirst()) {
 
 
-                        builder.setContentTitle(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Title)))
-                                .setContentText(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Description)))
-                                .setSmallIcon(R.drawable.ic_stat_remainder)
-                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                .setDefaults(Notification.DEFAULT_ALL)
-                                .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Description)))
-                                    .setBigContentTitle(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Title)))
-                                    );
-                        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                        notificationManager.notify(idNumber,builder.build());
-                        idNumber+=idNumber;
+                        giveTheNotification.notiFy(cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Title)),
+                                cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Description)));
                         // Store the value to Done Table
                             contentValues.put(CustomSQLDB2.Column_Date,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_Date)));
                             contentValues.put(CustomSQLDB2.Column_DateAndTime,cursor.getString(cursor.getColumnIndex(customSQLDB.Column_TimeRoman)));
