@@ -14,7 +14,7 @@
         android:dividerHeight="5dp"
         android:divider="#BDBDBD"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addrem"
         android:layout_width="60dp"
         android:layout_height="60dp"

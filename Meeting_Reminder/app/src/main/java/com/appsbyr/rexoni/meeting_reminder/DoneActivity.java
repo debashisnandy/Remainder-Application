@@ -1,6 +1,6 @@
 package com.appsbyr.rexoni.meeting_reminder;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class DoneActivity extends AppCompatActivity {
