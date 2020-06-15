@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.appsbyr.rexoni.meeting_reminder.AutoStartUtils.Utils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Utils.startPowerSaverIntent(getApplicationContext());
         ViewPager viewPager = findViewById(R.id.viewPage);
 
         SimpleFragmentAdapter simpleFragmentAdapter =new SimpleFragmentAdapter
