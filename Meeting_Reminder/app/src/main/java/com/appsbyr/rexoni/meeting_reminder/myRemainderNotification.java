@@ -37,6 +37,7 @@ public class myRemainderNotification extends BroadcastReceiver {
         ContentValues contentValues = new ContentValues();
         customSQLDB2= new CustomSQLDB2(context);
         fireTheAlarm = new FireTheAlarm(context);
+        Log.v("BroadCast_Else",intent.getAction().toString());
         if(intent.getAction().equalsIgnoreCase("com.remanider.roni")){
             Log.v("BroadCast_Class","It's working");
             Cursor cursor = mySqlDB.SelectFirstRow();
@@ -72,6 +73,7 @@ public class myRemainderNotification extends BroadcastReceiver {
                 ("android.intent.action.BOOT_COMPLETED")){
             Log.v("BroadCast_Else","It's working");
                         fireTheAlarm.FireTheAlarm();
+                        giveTheNotification.notiFy("BOOT COMPLETE", "Vai bootcompleted");
         }
 
     }
